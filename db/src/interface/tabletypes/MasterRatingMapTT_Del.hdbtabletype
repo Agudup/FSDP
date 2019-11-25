@@ -1,0 +1,10 @@
+TYPE "sap.fsdm.tabletypes::MasterRatingMapTT_Del" AS TABLE (
+"MasterRatingScale" NVARCHAR (128),
+"Rating" NVARCHAR (10),
+"RatingAgency" NVARCHAR (128),
+"RatingCategory" NVARCHAR (40),
+"RatingMethod" NVARCHAR (20),
+"TimeHorizon" NVARCHAR (10),
+"BusinessValidFrom" DATE ,
+"BusinessValidTo" DATE 
+)

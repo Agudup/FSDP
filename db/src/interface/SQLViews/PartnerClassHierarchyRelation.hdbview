@@ -1,0 +1,30 @@
+view "sap.fsdm.SQLViews::PartnerClassHierarchyRelation_View" 
+as select
+      "PartnerClassHierarchy" ,
+      "ASSOC_Child.PartnerClass" ,
+      "ASSOC_Child.PartnerClassificationSystem" ,
+      "ASSOC_Parent.PartnerClass" ,
+      "ASSOC_Parent.PartnerClassificationSystem" ,
+      "BusinessValidFrom" ,
+      "BusinessValidTo" ,
+      "SystemValidFrom" ,
+      "SystemValidTo" ,
+      "PartnerClassHierarchyName" ,
+      "SourceSystemID" ,
+      "ChangeTimestampInSourceSystem" ,
+      "ChangingUserInSourceSystem" ,
+      "ChangingProcessType" ,
+      "ChangingProcessID" 
+  
+from "sap.fsdm::PartnerClassHierarchyRelation"
+with associations
+(
+	join "sap.fsdm.SQLViews::BusinessPartnerClass_View" as "ASSOC_Child"
+	  on "ASSOC_Child"."PartnerClass" = "ASSOC_Child.PartnerClass" AND 
+	     "ASSOC_Child"."PartnerClassificationSystem" = "ASSOC_Child.PartnerClassificationSystem"
+	     ,
+	join "sap.fsdm.SQLViews::BusinessPartnerClass_View" as "ASSOC_Parent"
+	  on "ASSOC_Parent"."PartnerClassificationSystem" = "ASSOC_Parent.PartnerClassificationSystem" AND 
+	     "ASSOC_Parent"."PartnerClass" = "ASSOC_Parent.PartnerClass"
+	     
+);

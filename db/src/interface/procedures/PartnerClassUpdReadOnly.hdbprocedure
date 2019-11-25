@@ -1,0 +1,62 @@
+PROCEDURE "sap.fsdm.procedures::PartnerClassUpdReadOnly" (IN ROW "sap.fsdm.tabletypes::PartnerClassTT", OUT CURR_DEL "sap.fsdm.tabletypes::PartnerClassTT_Del", OUT CURR_INS "sap.fsdm.tabletypes::PartnerClassTT_Out")
+  LANGUAGE SQLSCRIPT
+  SQL SECURITY DEFINER
+  AS
+BEGIN
+
+  --No Versioning
+--Update the existing records 
+
+  --select data matching in current table
+  var_matching = 
+  select    "IN"."PartnerClass"  ,
+    "OLD"."PartnerClass" AS "OLD_PartnerClass" ,
+    "IN"."SourceSystemID"  ,
+    "OLD"."SourceSystemID" AS "OLD_SourceSystemID" ,
+    "IN"."ChangeTimestampInSourceSystem"  ,
+    "OLD"."ChangeTimestampInSourceSystem" AS "OLD_ChangeTimestampInSourceSystem" ,
+    "IN"."ChangingUserInSourceSystem"  ,
+    "OLD"."ChangingUserInSourceSystem" AS "OLD_ChangingUserInSourceSystem" ,
+    "IN"."ChangingProcessType"  ,
+    "OLD"."ChangingProcessType" AS "OLD_ChangingProcessType" ,
+    "IN"."ChangingProcessID"  ,
+    "OLD"."ChangingProcessID" AS "OLD_ChangingProcessID" 
+  
+  FROM :ROW AS "IN"
+  INNER JOIN  "sap.fsdm::PartnerClass" AS "OLD"
+  ON
+  "IN"."PartnerClass" = "OLD"."PartnerClass" 
+;
+
+
+
+
+--Delete entries for update from current table
+CURR_DEL = select 
+"PartnerClass"
+from "sap.fsdm::PartnerClass" WHERE("PartnerClass" 
+)in ( select "OLD_PartnerClass" AS "PartnerClass" 
+from :var_matching );
+
+
+--Insert ALL the input data 
+
+CURR_INS = select 
+"PartnerClass",
+"SourceSystemID",
+"ChangeTimestampInSourceSystem",
+"ChangingUserInSourceSystem",
+"ChangingProcessType",
+"ChangingProcessID"
+from  ( select 
+   "PartnerClass"  ,
+  "SourceSystemID"  ,
+  "ChangeTimestampInSourceSystem"  ,
+  "ChangingUserInSourceSystem"  ,
+  "ChangingProcessType"  ,
+  "ChangingProcessID"  
+from :var_matching );
+
+
+
+END

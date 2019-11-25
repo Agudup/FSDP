@@ -1,0 +1,3 @@
+TYPE "sap.fsdm.tabletypes::PartnerClassTT_Del" AS TABLE (
+"PartnerClass" NVARCHAR (40)
+)

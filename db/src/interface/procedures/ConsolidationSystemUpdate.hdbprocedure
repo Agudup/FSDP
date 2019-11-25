@@ -1,0 +1,60 @@
+PROCEDURE "sap.fsdm.procedures::ConsolidationSystemUpdate" (IN ROW "sap.fsdm.tabletypes::ConsolidationSystemTT")
+  LANGUAGE SQLSCRIPT
+  SQL SECURITY DEFINER
+  AS
+BEGIN
+
+  --No Versioning
+--Update the existing records 
+
+  --select data matching in current table
+  var_matching = 
+  select    "IN"."ConsolidationSystem"  ,
+    "OLD"."ConsolidationSystem" AS "OLD_ConsolidationSystem" ,
+    "IN"."SourceSystemID"  ,
+    "OLD"."SourceSystemID" AS "OLD_SourceSystemID" ,
+    "IN"."ChangeTimestampInSourceSystem"  ,
+    "OLD"."ChangeTimestampInSourceSystem" AS "OLD_ChangeTimestampInSourceSystem" ,
+    "IN"."ChangingUserInSourceSystem"  ,
+    "OLD"."ChangingUserInSourceSystem" AS "OLD_ChangingUserInSourceSystem" ,
+    "IN"."ChangingProcessType"  ,
+    "OLD"."ChangingProcessType" AS "OLD_ChangingProcessType" ,
+    "IN"."ChangingProcessID"  ,
+    "OLD"."ChangingProcessID" AS "OLD_ChangingProcessID" 
+  
+  FROM :ROW AS "IN"
+  INNER JOIN  "sap.fsdm::ConsolidationSystem" AS "OLD"
+  ON
+  "IN"."ConsolidationSystem" = "OLD"."ConsolidationSystem" 
+;
+
+
+
+
+--Delete entries for update from current table
+delete from "sap.fsdm::ConsolidationSystem" WHERE("ConsolidationSystem" 
+)in ( select "OLD_ConsolidationSystem" AS "ConsolidationSystem" 
+from :var_matching );
+
+
+--Insert ALL the input data 
+
+insert into "sap.fsdm::ConsolidationSystem"  (
+"ConsolidationSystem",
+"SourceSystemID",
+"ChangeTimestampInSourceSystem",
+"ChangingUserInSourceSystem",
+"ChangingProcessType",
+"ChangingProcessID"
+)  ( select 
+   "ConsolidationSystem"  ,
+  "SourceSystemID"  ,
+  "ChangeTimestampInSourceSystem"  ,
+  "ChangingUserInSourceSystem"  ,
+  "ChangingProcessType"  ,
+  "ChangingProcessID"  
+from :var_matching );
+
+
+
+END

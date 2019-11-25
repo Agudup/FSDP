@@ -1,0 +1,48 @@
+view "sap.fsdm.Views::EligibleCollateral_View" ( IN I_BUSINESS_DATE DATE, IN I_SYSTEM_TIMESTAMP TIMESTAMP)
+as select
+      "Scheme" as "Scheme",
+      "_FinancialInstrument.FinancialInstrumentID" as "_FinancialInstrument_FinancialInstrumentID",
+      "_InstrumentClass.InstrumentClass" as "_InstrumentClass_InstrumentClass",
+      "_InstrumentClass.InstrumentClassificationSystem" as "_InstrumentClass_InstrumentClassificationSystem",
+      "_MasterAgreement.FinancialContractID" as "_MasterAgreement_FinancialContractID",
+      "_MasterAgreement.IDSystem" as "_MasterAgreement_IDSystem",
+      "_Organization.BusinessPartnerID" as "_Organization_BusinessPartnerID",
+      "BusinessValidFrom" as "BusinessValidFrom",
+      "BusinessValidTo" as "BusinessValidTo",
+      "SystemValidFrom" as "SystemValidFrom",
+      "SystemValidTo" as "SystemValidTo",
+      "EligibilityStatus" as "EligibilityStatus",
+      "Haircut" as "Haircut",
+      "SourceSystemID" as "SourceSystemID",
+      "ChangeTimestampInSourceSystem" as "ChangeTimestampInSourceSystem",
+      "ChangingUserInSourceSystem" as "ChangingUserInSourceSystem",
+      "ChangingProcessType" as "ChangingProcessType",
+      "ChangingProcessID" as "ChangingProcessID"
+  
+from "sap.fsdm::EligibleCollateral"
+WHERE "SystemValidFrom" <= :I_SYSTEM_TIMESTAMP AND "SystemValidTo" > :I_SYSTEM_TIMESTAMP
+AND "BusinessValidFrom" <= :I_BUSINESS_DATE AND "BusinessValidTo" > :I_BUSINESS_DATE
+UNION ALL
+select
+      "Scheme" as "Scheme",
+      "_FinancialInstrument.FinancialInstrumentID" as "_FinancialInstrument_FinancialInstrumentID",
+      "_InstrumentClass.InstrumentClass" as "_InstrumentClass_InstrumentClass",
+      "_InstrumentClass.InstrumentClassificationSystem" as "_InstrumentClass_InstrumentClassificationSystem",
+      "_MasterAgreement.FinancialContractID" as "_MasterAgreement_FinancialContractID",
+      "_MasterAgreement.IDSystem" as "_MasterAgreement_IDSystem",
+      "_Organization.BusinessPartnerID" as "_Organization_BusinessPartnerID",
+      "BusinessValidFrom" as "BusinessValidFrom",
+      "BusinessValidTo" as "BusinessValidTo",
+      "SystemValidFrom" as "SystemValidFrom",
+      "SystemValidTo" as "SystemValidTo",
+      "EligibilityStatus" as "EligibilityStatus",
+      "Haircut" as "Haircut",
+      "SourceSystemID" as "SourceSystemID",
+      "ChangeTimestampInSourceSystem" as "ChangeTimestampInSourceSystem",
+      "ChangingUserInSourceSystem" as "ChangingUserInSourceSystem",
+      "ChangingProcessType" as "ChangingProcessType",
+      "ChangingProcessID" as "ChangingProcessID"
+  
+from "sap.fsdm::EligibleCollateral_Historical"
+WHERE "SystemValidFrom" <= :I_SYSTEM_TIMESTAMP AND "SystemValidTo" > :I_SYSTEM_TIMESTAMP
+AND "BusinessValidFrom" <= :I_BUSINESS_DATE AND "BusinessValidTo" > :I_BUSINESS_DATE;

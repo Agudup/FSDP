@@ -1,0 +1,17 @@
+PROCEDURE "sap.fsdm.procedures::RegionCodeDelReadOnly" (IN ROW "sap.fsdm.tabletypes::RegionCodeTT_Del", OUT CURR_DEL "sap.fsdm.tabletypes::RegionCodeTT_Del")
+  LANGUAGE SQLSCRIPT
+  SQL SECURITY DEFINER
+  READS SQL DATA
+  AS
+BEGIN
+
+  --No Versioning
+  --delete all matching records from the db
+CURR_DEL = select 
+"Region"
+from "sap.fsdm::RegionCode" WHERE("Region" 
+)in ( select "Region" 
+from :ROW );
+
+
+END

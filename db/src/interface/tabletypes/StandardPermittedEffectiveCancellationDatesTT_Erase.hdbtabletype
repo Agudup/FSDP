@@ -1,0 +1,7 @@
+TYPE "sap.fsdm.tabletypes::StandardPermittedEffectiveCancellationDatesTT_Erase" AS TABLE (
+"SequenceNumber" INTEGER ,
+"ASSOC_StandardTerminationOption.SequenceNumber" INTEGER ,
+"ASSOC_StandardTerminationOption.ASSOC_StandardProduct.FinancialStandardProductID" NVARCHAR (128),
+"ASSOC_StandardTerminationOption.ASSOC_StandardProduct.PricingScheme" NVARCHAR (128),
+"ASSOC_StandardTerminationOption.ASSOC_StandardProduct.ASSOC_Company.BusinessPartnerID" NVARCHAR (128)
+)

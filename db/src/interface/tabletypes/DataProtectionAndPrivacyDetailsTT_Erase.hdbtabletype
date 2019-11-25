@@ -1,0 +1,3 @@
+TYPE "sap.fsdm.tabletypes::DataProtectionAndPrivacyDetailsTT_Erase" AS TABLE (
+"ASSOC_BusinessPartner.BusinessPartnerID" NVARCHAR (128)
+)

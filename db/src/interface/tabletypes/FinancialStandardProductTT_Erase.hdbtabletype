@@ -1,0 +1,5 @@
+TYPE "sap.fsdm.tabletypes::FinancialStandardProductTT_Erase" AS TABLE (
+"FinancialStandardProductID" NVARCHAR (128),
+"PricingScheme" NVARCHAR (128),
+"ASSOC_Company.BusinessPartnerID" NVARCHAR (128)
+)

@@ -1,0 +1,17 @@
+view "sap.fsdm.SQLViews::DataProtectionAndPrivacyDetails_View" 
+as select
+      "ASSOC_BusinessPartner.BusinessPartnerID" ,
+      "IsEndOfPurposeBlocked" ,
+      "SourceSystemID" ,
+      "ChangeTimestampInSourceSystem" ,
+      "ChangingUserInSourceSystem" ,
+      "ChangingProcessType" ,
+      "ChangingProcessID" 
+  
+from "sap.fsdm::DataProtectionAndPrivacyDetails"
+with associations
+(
+	join "sap.fsdm.SQLViews::BusinessPartner_View" as "ASSOC_BusinessPartner"
+	  on "ASSOC_BusinessPartner"."BusinessPartnerID" = "ASSOC_BusinessPartner.BusinessPartnerID"
+	     
+);

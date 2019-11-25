@@ -1,0 +1,52 @@
+view "sap.fsdm.Views::RetirementPlan_View" ( IN I_BUSINESS_DATE DATE, IN I_SYSTEM_TIMESTAMP TIMESTAMP)
+as select
+      "ID" as "ID",
+      "_BusinessPartner.BusinessPartnerID" as "_BusinessPartner_BusinessPartnerID",
+      "BusinessValidFrom" as "BusinessValidFrom",
+      "BusinessValidTo" as "BusinessValidTo",
+      "SystemValidFrom" as "SystemValidFrom",
+      "SystemValidTo" as "SystemValidTo",
+      "Description" as "Description",
+      "ERISAEnabledIndicator" as "ERISAEnabledIndicator",
+      "FundedIndicator" as "FundedIndicator",
+      "IssueCountry" as "IssueCountry",
+      "IssueDate" as "IssueDate",
+      "Name" as "Name",
+      "RetirementPlanCategory" as "RetirementPlanCategory",
+      "Type" as "Type",
+      "USNonQualifiedPlanIndicator" as "USNonQualifiedPlanIndicator",
+      "SourceSystemID" as "SourceSystemID",
+      "ChangeTimestampInSourceSystem" as "ChangeTimestampInSourceSystem",
+      "ChangingUserInSourceSystem" as "ChangingUserInSourceSystem",
+      "ChangingProcessType" as "ChangingProcessType",
+      "ChangingProcessID" as "ChangingProcessID"
+  
+from "sap.fsdm::RetirementPlan"
+WHERE "SystemValidFrom" <= :I_SYSTEM_TIMESTAMP AND "SystemValidTo" > :I_SYSTEM_TIMESTAMP
+AND "BusinessValidFrom" <= :I_BUSINESS_DATE AND "BusinessValidTo" > :I_BUSINESS_DATE
+UNION ALL
+select
+      "ID" as "ID",
+      "_BusinessPartner.BusinessPartnerID" as "_BusinessPartner_BusinessPartnerID",
+      "BusinessValidFrom" as "BusinessValidFrom",
+      "BusinessValidTo" as "BusinessValidTo",
+      "SystemValidFrom" as "SystemValidFrom",
+      "SystemValidTo" as "SystemValidTo",
+      "Description" as "Description",
+      "ERISAEnabledIndicator" as "ERISAEnabledIndicator",
+      "FundedIndicator" as "FundedIndicator",
+      "IssueCountry" as "IssueCountry",
+      "IssueDate" as "IssueDate",
+      "Name" as "Name",
+      "RetirementPlanCategory" as "RetirementPlanCategory",
+      "Type" as "Type",
+      "USNonQualifiedPlanIndicator" as "USNonQualifiedPlanIndicator",
+      "SourceSystemID" as "SourceSystemID",
+      "ChangeTimestampInSourceSystem" as "ChangeTimestampInSourceSystem",
+      "ChangingUserInSourceSystem" as "ChangingUserInSourceSystem",
+      "ChangingProcessType" as "ChangingProcessType",
+      "ChangingProcessID" as "ChangingProcessID"
+  
+from "sap.fsdm::RetirementPlan_Historical"
+WHERE "SystemValidFrom" <= :I_SYSTEM_TIMESTAMP AND "SystemValidTo" > :I_SYSTEM_TIMESTAMP
+AND "BusinessValidFrom" <= :I_BUSINESS_DATE AND "BusinessValidTo" > :I_BUSINESS_DATE;

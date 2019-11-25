@@ -1,0 +1,17 @@
+PROCEDURE "sap.fsdm.procedures::DataProtectionAndPrivacyDetailsDelReadOnly" (IN ROW "sap.fsdm.tabletypes::DataProtectionAndPrivacyDetailsTT_Del", OUT CURR_DEL "sap.fsdm.tabletypes::DataProtectionAndPrivacyDetailsTT_Del")
+  LANGUAGE SQLSCRIPT
+  SQL SECURITY DEFINER
+  READS SQL DATA
+  AS
+BEGIN
+
+  --No Versioning
+  --delete all matching records from the db
+CURR_DEL = select 
+"ASSOC_BusinessPartner.BusinessPartnerID"
+from "sap.fsdm::DataProtectionAndPrivacyDetails" WHERE("ASSOC_BusinessPartner.BusinessPartnerID" 
+)in ( select "ASSOC_BusinessPartner.BusinessPartnerID" 
+from :ROW );
+
+
+END

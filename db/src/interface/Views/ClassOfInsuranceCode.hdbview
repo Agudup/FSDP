@@ -1,0 +1,10 @@
+view "sap.fsdm.Views::ClassOfInsuranceCode_View" 
+as select
+      "ClassOfInsurance" as "ClassOfInsurance",
+      "SourceSystemID" as "SourceSystemID",
+      "ChangeTimestampInSourceSystem" as "ChangeTimestampInSourceSystem",
+      "ChangingUserInSourceSystem" as "ChangingUserInSourceSystem",
+      "ChangingProcessType" as "ChangingProcessType",
+      "ChangingProcessID" as "ChangingProcessID"
+  
+from "sap.fsdm::ClassOfInsuranceCode";

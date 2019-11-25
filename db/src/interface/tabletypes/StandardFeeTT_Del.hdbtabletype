@@ -1,0 +1,8 @@
+TYPE "sap.fsdm.tabletypes::StandardFeeTT_Del" AS TABLE (
+"SequenceNumber" INTEGER ,
+"ASSOC_StandardProduct.FinancialStandardProductID" NVARCHAR (128),
+"ASSOC_StandardProduct.PricingScheme" NVARCHAR (128),
+"ASSOC_StandardProduct.ASSOC_Company.BusinessPartnerID" NVARCHAR (128),
+"BusinessValidFrom" DATE ,
+"BusinessValidTo" DATE 
+)

@@ -1,0 +1,54 @@
+view "sap.fsdm.Views::Claim_View" ( IN I_BUSINESS_DATE DATE, IN I_SYSTEM_TIMESTAMP TIMESTAMP)
+as select
+      "ID" as "ID",
+      "IDSystem" as "IDSystem",
+      "BusinessValidFrom" as "BusinessValidFrom",
+      "BusinessValidTo" as "BusinessValidTo",
+      "SystemValidFrom" as "SystemValidFrom",
+      "SystemValidTo" as "SystemValidTo",
+      "_FinancialContract.FinancialContractID" as "_FinancialContract_FinancialContractID",
+      "_FinancialContract.IDSystem" as "_FinancialContract_IDSystem",
+      "AgentReportedDate" as "AgentReportedDate",
+      "EstimatedLossDate" as "EstimatedLossDate",
+      "EstimatedLossTime" as "EstimatedLossTime",
+      "IncidentType" as "IncidentType",
+      "InsurerReportedDate" as "InsurerReportedDate",
+      "LifeCycleStatus" as "LifeCycleStatus",
+      "LossDate" as "LossDate",
+      "LossTime" as "LossTime",
+      "SourceSystemID" as "SourceSystemID",
+      "ChangeTimestampInSourceSystem" as "ChangeTimestampInSourceSystem",
+      "ChangingUserInSourceSystem" as "ChangingUserInSourceSystem",
+      "ChangingProcessType" as "ChangingProcessType",
+      "ChangingProcessID" as "ChangingProcessID"
+  
+from "sap.fsdm::Claim"
+WHERE "SystemValidFrom" <= :I_SYSTEM_TIMESTAMP AND "SystemValidTo" > :I_SYSTEM_TIMESTAMP
+AND "BusinessValidFrom" <= :I_BUSINESS_DATE AND "BusinessValidTo" > :I_BUSINESS_DATE
+UNION ALL
+select
+      "ID" as "ID",
+      "IDSystem" as "IDSystem",
+      "BusinessValidFrom" as "BusinessValidFrom",
+      "BusinessValidTo" as "BusinessValidTo",
+      "SystemValidFrom" as "SystemValidFrom",
+      "SystemValidTo" as "SystemValidTo",
+      "_FinancialContract.FinancialContractID" as "_FinancialContract_FinancialContractID",
+      "_FinancialContract.IDSystem" as "_FinancialContract_IDSystem",
+      "AgentReportedDate" as "AgentReportedDate",
+      "EstimatedLossDate" as "EstimatedLossDate",
+      "EstimatedLossTime" as "EstimatedLossTime",
+      "IncidentType" as "IncidentType",
+      "InsurerReportedDate" as "InsurerReportedDate",
+      "LifeCycleStatus" as "LifeCycleStatus",
+      "LossDate" as "LossDate",
+      "LossTime" as "LossTime",
+      "SourceSystemID" as "SourceSystemID",
+      "ChangeTimestampInSourceSystem" as "ChangeTimestampInSourceSystem",
+      "ChangingUserInSourceSystem" as "ChangingUserInSourceSystem",
+      "ChangingProcessType" as "ChangingProcessType",
+      "ChangingProcessID" as "ChangingProcessID"
+  
+from "sap.fsdm::Claim_Historical"
+WHERE "SystemValidFrom" <= :I_SYSTEM_TIMESTAMP AND "SystemValidTo" > :I_SYSTEM_TIMESTAMP
+AND "BusinessValidFrom" <= :I_BUSINESS_DATE AND "BusinessValidTo" > :I_BUSINESS_DATE;

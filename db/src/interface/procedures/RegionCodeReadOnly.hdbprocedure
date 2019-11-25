@@ -1,0 +1,42 @@
+PROCEDURE "sap.fsdm.procedures::RegionCodeReadOnly" (IN ROW "sap.fsdm.tabletypes::RegionCodeTT" , OUT CURR_DEL "sap.fsdm.tabletypes::RegionCodeTT_Out", OUT CURR_INS "sap.fsdm.tabletypes::RegionCodeTT_Out")
+  LANGUAGE SQLSCRIPT
+  SQL SECURITY DEFINER
+  READS SQL DATA
+  AS
+BEGIN
+
+  --No Versioning
+  --delete all matching records from the db
+CURR_DEL = select 
+"Region",
+"SourceSystemID",
+"ChangeTimestampInSourceSystem",
+"ChangingUserInSourceSystem",
+"ChangingProcessType",
+"ChangingProcessID"
+from "sap.fsdm::RegionCode" WHERE("Region" 
+)in ( select "Region" 
+from :ROW );
+
+
+--Insert ALL the input data 
+
+CURR_INS = select 
+"Region",
+"SourceSystemID",
+"ChangeTimestampInSourceSystem",
+"ChangingUserInSourceSystem",
+"ChangingProcessType",
+"ChangingProcessID"
+from( select 
+   "Region"  ,
+  "SourceSystemID"  ,
+  "ChangeTimestampInSourceSystem"  ,
+  "ChangingUserInSourceSystem"  ,
+  "ChangingProcessType"  ,
+  "ChangingProcessID"  
+from :ROW );
+
+
+
+END

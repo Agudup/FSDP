@@ -1,0 +1,36 @@
+view "sap.fsdm.Views::ContractBundle_View" ( IN I_BUSINESS_DATE DATE, IN I_SYSTEM_TIMESTAMP TIMESTAMP)
+as select
+      "ContractBundleID" as "ContractBundleID",
+      "BusinessValidFrom" as "BusinessValidFrom",
+      "BusinessValidTo" as "BusinessValidTo",
+      "SystemValidFrom" as "SystemValidFrom",
+      "SystemValidTo" as "SystemValidTo",
+      "ContractBundleDescription" as "ContractBundleDescription",
+      "ContractBundleType" as "ContractBundleType",
+      "SourceSystemID" as "SourceSystemID",
+      "ChangeTimestampInSourceSystem" as "ChangeTimestampInSourceSystem",
+      "ChangingUserInSourceSystem" as "ChangingUserInSourceSystem",
+      "ChangingProcessType" as "ChangingProcessType",
+      "ChangingProcessID" as "ChangingProcessID"
+  
+from "sap.fsdm::ContractBundle"
+WHERE "SystemValidFrom" <= :I_SYSTEM_TIMESTAMP AND "SystemValidTo" > :I_SYSTEM_TIMESTAMP
+AND "BusinessValidFrom" <= :I_BUSINESS_DATE AND "BusinessValidTo" > :I_BUSINESS_DATE
+UNION ALL
+select
+      "ContractBundleID" as "ContractBundleID",
+      "BusinessValidFrom" as "BusinessValidFrom",
+      "BusinessValidTo" as "BusinessValidTo",
+      "SystemValidFrom" as "SystemValidFrom",
+      "SystemValidTo" as "SystemValidTo",
+      "ContractBundleDescription" as "ContractBundleDescription",
+      "ContractBundleType" as "ContractBundleType",
+      "SourceSystemID" as "SourceSystemID",
+      "ChangeTimestampInSourceSystem" as "ChangeTimestampInSourceSystem",
+      "ChangingUserInSourceSystem" as "ChangingUserInSourceSystem",
+      "ChangingProcessType" as "ChangingProcessType",
+      "ChangingProcessID" as "ChangingProcessID"
+  
+from "sap.fsdm::ContractBundle_Historical"
+WHERE "SystemValidFrom" <= :I_SYSTEM_TIMESTAMP AND "SystemValidTo" > :I_SYSTEM_TIMESTAMP
+AND "BusinessValidFrom" <= :I_BUSINESS_DATE AND "BusinessValidTo" > :I_BUSINESS_DATE;

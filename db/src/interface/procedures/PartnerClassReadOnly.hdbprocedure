@@ -1,0 +1,42 @@
+PROCEDURE "sap.fsdm.procedures::PartnerClassReadOnly" (IN ROW "sap.fsdm.tabletypes::PartnerClassTT" , OUT CURR_DEL "sap.fsdm.tabletypes::PartnerClassTT_Out", OUT CURR_INS "sap.fsdm.tabletypes::PartnerClassTT_Out")
+  LANGUAGE SQLSCRIPT
+  SQL SECURITY DEFINER
+  READS SQL DATA
+  AS
+BEGIN
+
+  --No Versioning
+  --delete all matching records from the db
+CURR_DEL = select 
+"PartnerClass",
+"SourceSystemID",
+"ChangeTimestampInSourceSystem",
+"ChangingUserInSourceSystem",
+"ChangingProcessType",
+"ChangingProcessID"
+from "sap.fsdm::PartnerClass" WHERE("PartnerClass" 
+)in ( select "PartnerClass" 
+from :ROW );
+
+
+--Insert ALL the input data 
+
+CURR_INS = select 
+"PartnerClass",
+"SourceSystemID",
+"ChangeTimestampInSourceSystem",
+"ChangingUserInSourceSystem",
+"ChangingProcessType",
+"ChangingProcessID"
+from( select 
+   "PartnerClass"  ,
+  "SourceSystemID"  ,
+  "ChangeTimestampInSourceSystem"  ,
+  "ChangingUserInSourceSystem"  ,
+  "ChangingProcessType"  ,
+  "ChangingProcessID"  
+from :ROW );
+
+
+
+END

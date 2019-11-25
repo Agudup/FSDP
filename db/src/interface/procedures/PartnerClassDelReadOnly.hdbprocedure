@@ -1,0 +1,17 @@
+PROCEDURE "sap.fsdm.procedures::PartnerClassDelReadOnly" (IN ROW "sap.fsdm.tabletypes::PartnerClassTT_Del", OUT CURR_DEL "sap.fsdm.tabletypes::PartnerClassTT_Del")
+  LANGUAGE SQLSCRIPT
+  SQL SECURITY DEFINER
+  READS SQL DATA
+  AS
+BEGIN
+
+  --No Versioning
+  --delete all matching records from the db
+CURR_DEL = select 
+"PartnerClass"
+from "sap.fsdm::PartnerClass" WHERE("PartnerClass" 
+)in ( select "PartnerClass" 
+from :ROW );
+
+
+END

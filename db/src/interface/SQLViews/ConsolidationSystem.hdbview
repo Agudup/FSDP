@@ -1,0 +1,10 @@
+view "sap.fsdm.SQLViews::ConsolidationSystem_View" 
+as select
+      "ConsolidationSystem" ,
+      "SourceSystemID" ,
+      "ChangeTimestampInSourceSystem" ,
+      "ChangingUserInSourceSystem" ,
+      "ChangingProcessType" ,
+      "ChangingProcessID" 
+  
+from "sap.fsdm::ConsolidationSystem";

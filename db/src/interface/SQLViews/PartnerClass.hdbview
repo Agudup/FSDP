@@ -1,0 +1,10 @@
+view "sap.fsdm.SQLViews::PartnerClass_View" 
+as select
+      "PartnerClass" ,
+      "SourceSystemID" ,
+      "ChangeTimestampInSourceSystem" ,
+      "ChangingUserInSourceSystem" ,
+      "ChangingProcessType" ,
+      "ChangingProcessID" 
+  
+from "sap.fsdm::PartnerClass";

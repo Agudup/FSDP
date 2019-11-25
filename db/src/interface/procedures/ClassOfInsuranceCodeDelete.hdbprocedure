@@ -1,0 +1,14 @@
+PROCEDURE "sap.fsdm.procedures::ClassOfInsuranceCodeDelete" (IN ROW "sap.fsdm.tabletypes::ClassOfInsuranceCodeTT_Del")
+  LANGUAGE SQLSCRIPT
+  SQL SECURITY DEFINER
+  AS
+BEGIN
+
+  --No Versioning
+  --delete all matching records from the db
+delete from "sap.fsdm::ClassOfInsuranceCode" WHERE("ClassOfInsurance" 
+)in ( select "ClassOfInsurance" 
+from :ROW );
+
+
+END

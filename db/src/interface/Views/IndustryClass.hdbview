@@ -1,0 +1,38 @@
+view "sap.fsdm.Views::IndustryClass_View" ( IN I_BUSINESS_DATE DATE, IN I_SYSTEM_TIMESTAMP TIMESTAMP)
+as select
+      "Industry" as "Industry",
+      "IndustryClassificationSystem" as "IndustryClassificationSystem",
+      "BusinessValidFrom" as "BusinessValidFrom",
+      "BusinessValidTo" as "BusinessValidTo",
+      "SystemValidFrom" as "SystemValidFrom",
+      "SystemValidTo" as "SystemValidTo",
+      "IndustryClassificationSystemDescription" as "IndustryClassificationSystemDescription",
+      "IndustryDescription" as "IndustryDescription",
+      "SourceSystemID" as "SourceSystemID",
+      "ChangeTimestampInSourceSystem" as "ChangeTimestampInSourceSystem",
+      "ChangingUserInSourceSystem" as "ChangingUserInSourceSystem",
+      "ChangingProcessType" as "ChangingProcessType",
+      "ChangingProcessID" as "ChangingProcessID"
+  
+from "sap.fsdm::IndustryClass"
+WHERE "SystemValidFrom" <= :I_SYSTEM_TIMESTAMP AND "SystemValidTo" > :I_SYSTEM_TIMESTAMP
+AND "BusinessValidFrom" <= :I_BUSINESS_DATE AND "BusinessValidTo" > :I_BUSINESS_DATE
+UNION ALL
+select
+      "Industry" as "Industry",
+      "IndustryClassificationSystem" as "IndustryClassificationSystem",
+      "BusinessValidFrom" as "BusinessValidFrom",
+      "BusinessValidTo" as "BusinessValidTo",
+      "SystemValidFrom" as "SystemValidFrom",
+      "SystemValidTo" as "SystemValidTo",
+      "IndustryClassificationSystemDescription" as "IndustryClassificationSystemDescription",
+      "IndustryDescription" as "IndustryDescription",
+      "SourceSystemID" as "SourceSystemID",
+      "ChangeTimestampInSourceSystem" as "ChangeTimestampInSourceSystem",
+      "ChangingUserInSourceSystem" as "ChangingUserInSourceSystem",
+      "ChangingProcessType" as "ChangingProcessType",
+      "ChangingProcessID" as "ChangingProcessID"
+  
+from "sap.fsdm::IndustryClass_Historical"
+WHERE "SystemValidFrom" <= :I_SYSTEM_TIMESTAMP AND "SystemValidTo" > :I_SYSTEM_TIMESTAMP
+AND "BusinessValidFrom" <= :I_BUSINESS_DATE AND "BusinessValidTo" > :I_BUSINESS_DATE;

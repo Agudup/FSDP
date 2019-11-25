@@ -1,0 +1,74 @@
+view "sap.fsdm.Views::Rating_View" ( IN I_BUSINESS_DATE DATE, IN I_SYSTEM_TIMESTAMP TIMESTAMP)
+as select
+      "IsFxRating" as "IsFxRating",
+      "RatingAgency" as "RatingAgency",
+      "RatingCategory" as "RatingCategory",
+      "RatingMethod" as "RatingMethod",
+      "RatingStatus" as "RatingStatus",
+      "TimeHorizon" as "TimeHorizon",
+      "ASSOC_BusinessPartner.BusinessPartnerID" as "ASSOC_BusinessPartner_BusinessPartnerID",
+      "ASSOC_FinancialContract.FinancialContractID" as "ASSOC_FinancialContract_FinancialContractID",
+      "ASSOC_FinancialContract.IDSystem" as "ASSOC_FinancialContract_IDSystem",
+      "ASSOC_GeographicalRegion.GeographicalStructureID" as "ASSOC_GeographicalRegion_GeographicalStructureID",
+      "ASSOC_GeographicalRegion.GeographicalUnitID" as "ASSOC_GeographicalRegion_GeographicalUnitID",
+      "_Security.FinancialInstrumentID" as "_Security_FinancialInstrumentID",
+      "BusinessValidFrom" as "BusinessValidFrom",
+      "BusinessValidTo" as "BusinessValidTo",
+      "SystemValidFrom" as "SystemValidFrom",
+      "SystemValidTo" as "SystemValidTo",
+      "ASSOC_EmployeeResponsibleForRating.BusinessPartnerID" as "ASSOC_EmployeeResponsibleForRating_BusinessPartnerID",
+      "Commissioned" as "Commissioned",
+      "CreationDate" as "CreationDate",
+      "Endorsed" as "Endorsed",
+      "PublicationDate" as "PublicationDate",
+      "Rating" as "Rating",
+      "RatingComment" as "RatingComment",
+      "RatingDescription" as "RatingDescription",
+      "RatingOutlook" as "RatingOutlook",
+      "RatingRank" as "RatingRank",
+      "SourceSystemID" as "SourceSystemID",
+      "ChangeTimestampInSourceSystem" as "ChangeTimestampInSourceSystem",
+      "ChangingUserInSourceSystem" as "ChangingUserInSourceSystem",
+      "ChangingProcessType" as "ChangingProcessType",
+      "ChangingProcessID" as "ChangingProcessID"
+  
+from "sap.fsdm::Rating"
+WHERE "SystemValidFrom" <= :I_SYSTEM_TIMESTAMP AND "SystemValidTo" > :I_SYSTEM_TIMESTAMP
+AND "BusinessValidFrom" <= :I_BUSINESS_DATE AND "BusinessValidTo" > :I_BUSINESS_DATE
+UNION ALL
+select
+      "IsFxRating" as "IsFxRating",
+      "RatingAgency" as "RatingAgency",
+      "RatingCategory" as "RatingCategory",
+      "RatingMethod" as "RatingMethod",
+      "RatingStatus" as "RatingStatus",
+      "TimeHorizon" as "TimeHorizon",
+      "ASSOC_BusinessPartner.BusinessPartnerID" as "ASSOC_BusinessPartner_BusinessPartnerID",
+      "ASSOC_FinancialContract.FinancialContractID" as "ASSOC_FinancialContract_FinancialContractID",
+      "ASSOC_FinancialContract.IDSystem" as "ASSOC_FinancialContract_IDSystem",
+      "ASSOC_GeographicalRegion.GeographicalStructureID" as "ASSOC_GeographicalRegion_GeographicalStructureID",
+      "ASSOC_GeographicalRegion.GeographicalUnitID" as "ASSOC_GeographicalRegion_GeographicalUnitID",
+      "_Security.FinancialInstrumentID" as "_Security_FinancialInstrumentID",
+      "BusinessValidFrom" as "BusinessValidFrom",
+      "BusinessValidTo" as "BusinessValidTo",
+      "SystemValidFrom" as "SystemValidFrom",
+      "SystemValidTo" as "SystemValidTo",
+      "ASSOC_EmployeeResponsibleForRating.BusinessPartnerID" as "ASSOC_EmployeeResponsibleForRating_BusinessPartnerID",
+      "Commissioned" as "Commissioned",
+      "CreationDate" as "CreationDate",
+      "Endorsed" as "Endorsed",
+      "PublicationDate" as "PublicationDate",
+      "Rating" as "Rating",
+      "RatingComment" as "RatingComment",
+      "RatingDescription" as "RatingDescription",
+      "RatingOutlook" as "RatingOutlook",
+      "RatingRank" as "RatingRank",
+      "SourceSystemID" as "SourceSystemID",
+      "ChangeTimestampInSourceSystem" as "ChangeTimestampInSourceSystem",
+      "ChangingUserInSourceSystem" as "ChangingUserInSourceSystem",
+      "ChangingProcessType" as "ChangingProcessType",
+      "ChangingProcessID" as "ChangingProcessID"
+  
+from "sap.fsdm::Rating_Historical"
+WHERE "SystemValidFrom" <= :I_SYSTEM_TIMESTAMP AND "SystemValidTo" > :I_SYSTEM_TIMESTAMP
+AND "BusinessValidFrom" <= :I_BUSINESS_DATE AND "BusinessValidTo" > :I_BUSINESS_DATE;

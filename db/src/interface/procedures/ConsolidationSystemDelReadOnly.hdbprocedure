@@ -1,0 +1,17 @@
+PROCEDURE "sap.fsdm.procedures::ConsolidationSystemDelReadOnly" (IN ROW "sap.fsdm.tabletypes::ConsolidationSystemTT_Del", OUT CURR_DEL "sap.fsdm.tabletypes::ConsolidationSystemTT_Del")
+  LANGUAGE SQLSCRIPT
+  SQL SECURITY DEFINER
+  READS SQL DATA
+  AS
+BEGIN
+
+  --No Versioning
+  --delete all matching records from the db
+CURR_DEL = select 
+"ConsolidationSystem"
+from "sap.fsdm::ConsolidationSystem" WHERE("ConsolidationSystem" 
+)in ( select "ConsolidationSystem" 
+from :ROW );
+
+
+END

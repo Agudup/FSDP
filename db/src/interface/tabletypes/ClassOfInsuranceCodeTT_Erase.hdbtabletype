@@ -1,0 +1,3 @@
+TYPE "sap.fsdm.tabletypes::ClassOfInsuranceCodeTT_Erase" AS TABLE (
+"ClassOfInsurance" NVARCHAR (40)
+)

@@ -1,0 +1,14 @@
+PROCEDURE "sap.fsdm.procedures::RegionCodeDelete" (IN ROW "sap.fsdm.tabletypes::RegionCodeTT_Del")
+  LANGUAGE SQLSCRIPT
+  SQL SECURITY DEFINER
+  AS
+BEGIN
+
+  --No Versioning
+  --delete all matching records from the db
+delete from "sap.fsdm::RegionCode" WHERE("Region" 
+)in ( select "Region" 
+from :ROW );
+
+
+END

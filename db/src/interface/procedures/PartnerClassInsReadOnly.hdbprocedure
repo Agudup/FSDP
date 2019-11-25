@@ -1,0 +1,30 @@
+PROCEDURE "sap.fsdm.procedures::PartnerClassInsReadOnly" (IN ROW "sap.fsdm.tabletypes::PartnerClassTT", OUT CURR_INS "sap.fsdm.tabletypes::PartnerClassTT_Out")
+  LANGUAGE SQLSCRIPT
+  SQL SECURITY DEFINER
+  AS
+BEGIN
+
+  --No Versioning
+
+declare in_tt "sap.fsdm.tabletypes::PartnerClassTT" default select    ( case when "PartnerClass" is null then '' else "PartnerClass" end ) as "PartnerClass",
+    "SourceSystemID",
+    "ChangeTimestampInSourceSystem",
+    "ChangingUserInSourceSystem",
+    "ChangingProcessType",
+    "ChangingProcessID"
+from :ROW;
+
+--Insert ALL the input data
+
+CURR_INS = select 
+   "PartnerClass"  ,
+  "SourceSystemID"  ,
+  "ChangeTimestampInSourceSystem"  ,
+  "ChangingUserInSourceSystem"  ,
+  "ChangingProcessType"  ,
+  "ChangingProcessID"  
+from :ROW;
+
+
+
+END

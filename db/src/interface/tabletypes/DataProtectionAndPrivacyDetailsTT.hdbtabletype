@@ -1,0 +1,9 @@
+TYPE "sap.fsdm.tabletypes::DataProtectionAndPrivacyDetailsTT" AS TABLE (
+"ASSOC_BusinessPartner.BusinessPartnerID" NVARCHAR (128),
+"IsEndOfPurposeBlocked" BOOLEAN ,
+"SourceSystemID" NVARCHAR (128),
+"ChangeTimestampInSourceSystem" TIMESTAMP ,
+"ChangingUserInSourceSystem" NVARCHAR (128),
+"ChangingProcessType" NVARCHAR (40),
+"ChangingProcessID" NVARCHAR (128)
+)

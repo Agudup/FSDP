@@ -1,0 +1,45 @@
+PROCEDURE "sap.fsdm.procedures::DataProtectionAndPrivacyDetailsReadOnly" (IN ROW "sap.fsdm.tabletypes::DataProtectionAndPrivacyDetailsTT" , OUT CURR_DEL "sap.fsdm.tabletypes::DataProtectionAndPrivacyDetailsTT_Out", OUT CURR_INS "sap.fsdm.tabletypes::DataProtectionAndPrivacyDetailsTT_Out")
+  LANGUAGE SQLSCRIPT
+  SQL SECURITY DEFINER
+  READS SQL DATA
+  AS
+BEGIN
+
+  --No Versioning
+  --delete all matching records from the db
+CURR_DEL = select 
+"ASSOC_BusinessPartner.BusinessPartnerID",
+"IsEndOfPurposeBlocked",
+"SourceSystemID",
+"ChangeTimestampInSourceSystem",
+"ChangingUserInSourceSystem",
+"ChangingProcessType",
+"ChangingProcessID"
+from "sap.fsdm::DataProtectionAndPrivacyDetails" WHERE("ASSOC_BusinessPartner.BusinessPartnerID" 
+)in ( select "ASSOC_BusinessPartner.BusinessPartnerID" 
+from :ROW );
+
+
+--Insert ALL the input data 
+
+CURR_INS = select 
+"ASSOC_BusinessPartner.BusinessPartnerID",
+"IsEndOfPurposeBlocked",
+"SourceSystemID",
+"ChangeTimestampInSourceSystem",
+"ChangingUserInSourceSystem",
+"ChangingProcessType",
+"ChangingProcessID"
+from( select 
+   "ASSOC_BusinessPartner.BusinessPartnerID"  ,
+  "IsEndOfPurposeBlocked"  ,
+  "SourceSystemID"  ,
+  "ChangeTimestampInSourceSystem"  ,
+  "ChangingUserInSourceSystem"  ,
+  "ChangingProcessType"  ,
+  "ChangingProcessID"  
+from :ROW );
+
+
+
+END

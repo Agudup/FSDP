@@ -1,0 +1,17 @@
+PROCEDURE "sap.fsdm.procedures::ClassOfInsuranceCodeDelReadOnly" (IN ROW "sap.fsdm.tabletypes::ClassOfInsuranceCodeTT_Del", OUT CURR_DEL "sap.fsdm.tabletypes::ClassOfInsuranceCodeTT_Del")
+  LANGUAGE SQLSCRIPT
+  SQL SECURITY DEFINER
+  READS SQL DATA
+  AS
+BEGIN
+
+  --No Versioning
+  --delete all matching records from the db
+CURR_DEL = select 
+"ClassOfInsurance"
+from "sap.fsdm::ClassOfInsuranceCode" WHERE("ClassOfInsurance" 
+)in ( select "ClassOfInsurance" 
+from :ROW );
+
+
+END

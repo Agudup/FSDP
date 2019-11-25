@@ -1,0 +1,14 @@
+PROCEDURE "sap.fsdm.procedures::PartnerClassDelete" (IN ROW "sap.fsdm.tabletypes::PartnerClassTT_Del")
+  LANGUAGE SQLSCRIPT
+  SQL SECURITY DEFINER
+  AS
+BEGIN
+
+  --No Versioning
+  --delete all matching records from the db
+delete from "sap.fsdm::PartnerClass" WHERE("PartnerClass" 
+)in ( select "PartnerClass" 
+from :ROW );
+
+
+END

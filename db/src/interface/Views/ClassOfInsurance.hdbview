@@ -1,0 +1,46 @@
+view "sap.fsdm.Views::ClassOfInsurance_View" ( IN I_BUSINESS_DATE DATE, IN I_SYSTEM_TIMESTAMP TIMESTAMP)
+as select
+      "ClassOfInsurance" as "ClassOfInsurance",
+      "SubClassOfInsurance" as "SubClassOfInsurance",
+      "SubSubClassOfInsurance" as "SubSubClassOfInsurance",
+      "_ReinsuranceCoverage.CoverageID" as "_ReinsuranceCoverage_CoverageID",
+      "_ReinsuranceCoverage.SectionID" as "_ReinsuranceCoverage_SectionID",
+      "_ReinsuranceCoverage._ReinsuranceContract.FinancialContractID" as "_ReinsuranceCoverage__ReinsuranceContract_FinancialContractID",
+      "_ReinsuranceCoverage._ReinsuranceContract.IDSystem" as "_ReinsuranceCoverage__ReinsuranceContract_IDSystem",
+      "BusinessValidFrom" as "BusinessValidFrom",
+      "BusinessValidTo" as "BusinessValidTo",
+      "SystemValidFrom" as "SystemValidFrom",
+      "SystemValidTo" as "SystemValidTo",
+      "DefaultIndicator" as "DefaultIndicator",
+      "SourceSystemID" as "SourceSystemID",
+      "ChangeTimestampInSourceSystem" as "ChangeTimestampInSourceSystem",
+      "ChangingUserInSourceSystem" as "ChangingUserInSourceSystem",
+      "ChangingProcessType" as "ChangingProcessType",
+      "ChangingProcessID" as "ChangingProcessID"
+  
+from "sap.fsdm::ClassOfInsurance"
+WHERE "SystemValidFrom" <= :I_SYSTEM_TIMESTAMP AND "SystemValidTo" > :I_SYSTEM_TIMESTAMP
+AND "BusinessValidFrom" <= :I_BUSINESS_DATE AND "BusinessValidTo" > :I_BUSINESS_DATE
+UNION ALL
+select
+      "ClassOfInsurance" as "ClassOfInsurance",
+      "SubClassOfInsurance" as "SubClassOfInsurance",
+      "SubSubClassOfInsurance" as "SubSubClassOfInsurance",
+      "_ReinsuranceCoverage.CoverageID" as "_ReinsuranceCoverage_CoverageID",
+      "_ReinsuranceCoverage.SectionID" as "_ReinsuranceCoverage_SectionID",
+      "_ReinsuranceCoverage._ReinsuranceContract.FinancialContractID" as "_ReinsuranceCoverage__ReinsuranceContract_FinancialContractID",
+      "_ReinsuranceCoverage._ReinsuranceContract.IDSystem" as "_ReinsuranceCoverage__ReinsuranceContract_IDSystem",
+      "BusinessValidFrom" as "BusinessValidFrom",
+      "BusinessValidTo" as "BusinessValidTo",
+      "SystemValidFrom" as "SystemValidFrom",
+      "SystemValidTo" as "SystemValidTo",
+      "DefaultIndicator" as "DefaultIndicator",
+      "SourceSystemID" as "SourceSystemID",
+      "ChangeTimestampInSourceSystem" as "ChangeTimestampInSourceSystem",
+      "ChangingUserInSourceSystem" as "ChangingUserInSourceSystem",
+      "ChangingProcessType" as "ChangingProcessType",
+      "ChangingProcessID" as "ChangingProcessID"
+  
+from "sap.fsdm::ClassOfInsurance_Historical"
+WHERE "SystemValidFrom" <= :I_SYSTEM_TIMESTAMP AND "SystemValidTo" > :I_SYSTEM_TIMESTAMP
+AND "BusinessValidFrom" <= :I_BUSINESS_DATE AND "BusinessValidTo" > :I_BUSINESS_DATE;

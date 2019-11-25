@@ -1,0 +1,42 @@
+view "sap.fsdm.Views::FinancialStatementHierarchy_View" ( IN I_BUSINESS_DATE DATE, IN I_SYSTEM_TIMESTAMP TIMESTAMP)
+as select
+      "FinancialStatementHierarchyID" as "FinancialStatementHierarchyID",
+      "_Child.FinancialStatementSegmentID" as "_Child_FinancialStatementSegmentID",
+      "_Child._FinancialStatementStructure.FinancialStatementStructureID" as "_Child__FinancialStatementStructure_FinancialStatementStructureID",
+      "_Parent.FinancialStatementSegmentID" as "_Parent_FinancialStatementSegmentID",
+      "_Parent._FinancialStatementStructure.FinancialStatementStructureID" as "_Parent__FinancialStatementStructure_FinancialStatementStructureID",
+      "BusinessValidFrom" as "BusinessValidFrom",
+      "BusinessValidTo" as "BusinessValidTo",
+      "SystemValidFrom" as "SystemValidFrom",
+      "SystemValidTo" as "SystemValidTo",
+      "FinancialStatementsHierarchyDescription" as "FinancialStatementsHierarchyDescription",
+      "SourceSystemID" as "SourceSystemID",
+      "ChangeTimestampInSourceSystem" as "ChangeTimestampInSourceSystem",
+      "ChangingUserInSourceSystem" as "ChangingUserInSourceSystem",
+      "ChangingProcessType" as "ChangingProcessType",
+      "ChangingProcessID" as "ChangingProcessID"
+  
+from "sap.fsdm::FinancialStatementHierarchy"
+WHERE "SystemValidFrom" <= :I_SYSTEM_TIMESTAMP AND "SystemValidTo" > :I_SYSTEM_TIMESTAMP
+AND "BusinessValidFrom" <= :I_BUSINESS_DATE AND "BusinessValidTo" > :I_BUSINESS_DATE
+UNION ALL
+select
+      "FinancialStatementHierarchyID" as "FinancialStatementHierarchyID",
+      "_Child.FinancialStatementSegmentID" as "_Child_FinancialStatementSegmentID",
+      "_Child._FinancialStatementStructure.FinancialStatementStructureID" as "_Child__FinancialStatementStructure_FinancialStatementStructureID",
+      "_Parent.FinancialStatementSegmentID" as "_Parent_FinancialStatementSegmentID",
+      "_Parent._FinancialStatementStructure.FinancialStatementStructureID" as "_Parent__FinancialStatementStructure_FinancialStatementStructureID",
+      "BusinessValidFrom" as "BusinessValidFrom",
+      "BusinessValidTo" as "BusinessValidTo",
+      "SystemValidFrom" as "SystemValidFrom",
+      "SystemValidTo" as "SystemValidTo",
+      "FinancialStatementsHierarchyDescription" as "FinancialStatementsHierarchyDescription",
+      "SourceSystemID" as "SourceSystemID",
+      "ChangeTimestampInSourceSystem" as "ChangeTimestampInSourceSystem",
+      "ChangingUserInSourceSystem" as "ChangingUserInSourceSystem",
+      "ChangingProcessType" as "ChangingProcessType",
+      "ChangingProcessID" as "ChangingProcessID"
+  
+from "sap.fsdm::FinancialStatementHierarchy_Historical"
+WHERE "SystemValidFrom" <= :I_SYSTEM_TIMESTAMP AND "SystemValidTo" > :I_SYSTEM_TIMESTAMP
+AND "BusinessValidFrom" <= :I_BUSINESS_DATE AND "BusinessValidTo" > :I_BUSINESS_DATE;

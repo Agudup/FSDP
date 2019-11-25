@@ -1,0 +1,3 @@
+TYPE "sap.fsdm.tabletypes::RegionCodeTT_Del" AS TABLE (
+"Region" NVARCHAR (24)
+)

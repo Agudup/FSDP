@@ -1,0 +1,60 @@
+PROCEDURE "sap.fsdm.procedures::ClassOfInsuranceCodeUpdate" (IN ROW "sap.fsdm.tabletypes::ClassOfInsuranceCodeTT")
+  LANGUAGE SQLSCRIPT
+  SQL SECURITY DEFINER
+  AS
+BEGIN
+
+  --No Versioning
+--Update the existing records 
+
+  --select data matching in current table
+  var_matching = 
+  select    "IN"."ClassOfInsurance"  ,
+    "OLD"."ClassOfInsurance" AS "OLD_ClassOfInsurance" ,
+    "IN"."SourceSystemID"  ,
+    "OLD"."SourceSystemID" AS "OLD_SourceSystemID" ,
+    "IN"."ChangeTimestampInSourceSystem"  ,
+    "OLD"."ChangeTimestampInSourceSystem" AS "OLD_ChangeTimestampInSourceSystem" ,
+    "IN"."ChangingUserInSourceSystem"  ,
+    "OLD"."ChangingUserInSourceSystem" AS "OLD_ChangingUserInSourceSystem" ,
+    "IN"."ChangingProcessType"  ,
+    "OLD"."ChangingProcessType" AS "OLD_ChangingProcessType" ,
+    "IN"."ChangingProcessID"  ,
+    "OLD"."ChangingProcessID" AS "OLD_ChangingProcessID" 
+  
+  FROM :ROW AS "IN"
+  INNER JOIN  "sap.fsdm::ClassOfInsuranceCode" AS "OLD"
+  ON
+  "IN"."ClassOfInsurance" = "OLD"."ClassOfInsurance" 
+;
+
+
+
+
+--Delete entries for update from current table
+delete from "sap.fsdm::ClassOfInsuranceCode" WHERE("ClassOfInsurance" 
+)in ( select "OLD_ClassOfInsurance" AS "ClassOfInsurance" 
+from :var_matching );
+
+
+--Insert ALL the input data 
+
+insert into "sap.fsdm::ClassOfInsuranceCode"  (
+"ClassOfInsurance",
+"SourceSystemID",
+"ChangeTimestampInSourceSystem",
+"ChangingUserInSourceSystem",
+"ChangingProcessType",
+"ChangingProcessID"
+)  ( select 
+   "ClassOfInsurance"  ,
+  "SourceSystemID"  ,
+  "ChangeTimestampInSourceSystem"  ,
+  "ChangingUserInSourceSystem"  ,
+  "ChangingProcessType"  ,
+  "ChangingProcessID"  
+from :var_matching );
+
+
+
+END
