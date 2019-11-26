@@ -8,14 +8,23 @@ version: 0.0.1
 #description: A Hello World sample application
 #provider: SAP Sample generator
 
-
 modules:
+ - name: Node
+   type: nodejs
+   path: Node
+   provides:
+    - name: Node_api
+      properties:
+         url: ${default-url}
+
+
  - name: FSDM_1_Datamodel-db
    type: hdb
    path: db
    requires:
     - name: FSDM_1_Datamodel-container
-
+    
+    
 resources:
  - name: FSDM_1_Datamodel-container
    properties:
