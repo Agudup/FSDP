@@ -1,3 +1,12 @@
-general:
-  buildTool: 'mta'
-  gitSshKeyCredentialsId: 'GIT'
+steps:
+  mtaBuild:
+    buildTarget: 'XSA'
+  xsDeploy:
+    apiUrl: 'https://10.79.9.18:30030' # e.g. 'https://example.org:30030'
+    # credentialsId: 'XS' omitted, 'XS' is the default
+    docker:
+      dockerImage: '5f84aab33ccd' # for legal reasons no docker image is provided.
+      # dockerPullImage: true # default: 'false'. Needs to be set to 'true' in case the image is served from a docker registry
+    loginOpts: '--skip-ssl-validation'
+    org: 'orgname'
+    space: 'PROD'
