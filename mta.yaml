@@ -9,13 +9,7 @@ version: 0.0.1
 #provider: SAP Sample generator
 
 modules:
- - name: Node
-   type: nodejs
-   path: Node
-   provides:
-    - name: Node_api
-      properties:
-         url: ${default-url}
+ 
 
 
  - name: FSDM_1_Datamodel-db
