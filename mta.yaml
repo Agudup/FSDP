@@ -1,12 +1,12 @@
 _schema-version: '2.0'
-#ID: FSDM_1_Datamodel
-#description: FSDM_1_Datamodel
-#version: 0.0.1
+ID: FSDM_1_Datamodel
+description: FSDM_1_Datamodel
+version: 0.0.1
 
-ID: com.sap.piper.node.hello.world
-version: 1.0.0
-description: A Hello World sample application
-provider: SAP Sample generator
+#ID: com.sap.piper.node.hello.world
+#version: 1.0.0
+#description: A Hello World sample application
+#provider: SAP Sample generator
 
 
 modules:
